@@ -8,10 +8,11 @@ set(CMAKE_C_STANDARD 99) # 设置C语言标准
 
 # 添加可执行文件生成规则
 add_executable(ringbuf_test
-    ../ringbuf.c
+    ../../simple/ring_buffer.c
+    ../../simple/ring_buffer_chapter.c
     main.c
 )
 
 # 指定包含目录
-target_include_directories(ringbuf_test PUBLIC ..)
+target_include_directories(ringbuf_test PUBLIC ../../simple)
 

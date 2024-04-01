@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "ringbuf.h"
 
 int main(int argc, void **args)
@@ -19,6 +20,20 @@ int main(int argc, void **args)
     const void *tail = ringbuf_tail(ringbuf);
     const void *head = ringbuf_head(ringbuf);
     printf("tail : %p  head : %p\r\n", tail, head);
+
+    ringbuf_memset(ringbuf, 'A', 255);
+    int offset = ringbuf_findchr(ringbuf, 'A', 5);
+    printf("offset : %d\r\n", offset);
+
+    char array[10];
+    memset(array, 'B', 10);
+    ringbuf_memcpy_into(ringbuf, array, 10);
+    offset = ringbuf_findchr(ringbuf, 'B', 6);
+    printf("offset : %d\r\n", offset);
+
+    char array2[11] = {0};
+    ringbuf_memcpy_from(array2, ringbuf, 10);
+    printf("%s\r\n", array2);
 
     ringbuf_reset(ringbuf);
     ringbuf_free(&ringbuf);
